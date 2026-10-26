@@ -1,0 +1,9 @@
+# Secretos y datos locales: NUNCA al repo
+.env
+*.db
+*.db-journal
+__pycache__/
+venv/
+.vercel/
+node_modules/
+.DS_Store

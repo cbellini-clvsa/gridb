@@ -1,0 +1,17 @@
+[Unit]
+Description=Grid trading bot
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/gridbot/bot
+EnvironmentFile=/home/ubuntu/gridbot/bot/.env
+ExecStart=/home/ubuntu/gridbot/bot/venv/bin/python main.py config.json
+Restart=always
+RestartSec=15
+MemoryMax=400M
+
+[Install]
+WantedBy=multi-user.target

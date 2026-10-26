@@ -1,0 +1,43 @@
+{
+  "exchange": "okx",
+  "mode": "live",
+  "sandbox": true,
+  "pairs": [
+    "BTC/USDT",
+    "ETH/USDT",
+    "SOL/USDT"
+  ],
+  "poll_seconds": 30,
+  "db_path": "gridbot.db",
+  "grid": {
+    "levels": 12,
+    "quote_per_level": 20,
+    "timeframe": "1h",
+    "lookback_candles": 168,
+    "margin_pct": 2.0,
+    "auto_reset": "up",
+    "sell_amount_haircut_pct": 0.1
+  },
+  "paper": {
+    "fee_pct": 0.1,
+    "start_quote": 1000
+  },
+  "ranges": {},
+  "exit": {
+    "enabled": true,
+    "min_cycles": 8,
+    "min_profit_pct": 0,
+    "restart": false
+  },
+  "web": {
+    "enabled": false,
+    "port": 8080,
+    "refresh_seconds": 30
+  },
+  "stop": {
+    "enabled": true,
+    "max_loss_pct": 8,
+    "price_below_low_pct": 3,
+    "action": "liquidate"
+  }
+}
