@@ -56,7 +56,7 @@ python main.py config.json
 ## Desplegar en VPS (Ubuntu, 1 GB) — ej. Oracle Cloud Free Tier
 ```bash
 sudo apt update && sudo apt install -y python3-venv git
-git clone https://github.com/TU_USUARIO/gridbot.git ~/gridbot && cd ~/gridbot/bot
+git clone https://github.com/cbellini-clvsa/gridb.git ~/gridbot && cd ~/gridbot/bot
 python3 -m venv venv && venv/bin/pip install -r requirements.txt
 cp .env.example .env && nano .env            # completar claves
 sudo cp gridbot.service /etc/systemd/system/ # revisá User= y rutas si tu usuario no es "ubuntu"
