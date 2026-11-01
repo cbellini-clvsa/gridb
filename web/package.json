@@ -1,5 +1,8 @@
 {
   "name": "gridbot-web",
   "private": true,
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "@vercel/edge": "^1.2.1"
+  }
 }

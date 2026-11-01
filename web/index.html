@@ -19,13 +19,10 @@ td:first-child,th:first-child{text-align:left}
 tr.mark td{background:var(--mark);color:var(--markb);font-weight:500;border-top:2px solid var(--markb);border-bottom:2px solid var(--markb)}
 .tag{font-size:11px;padding:2px 8px;border-radius:10px;border:1px solid var(--bd);color:var(--mut)}
 .muted{color:var(--mut);font-size:12px}svg{width:100%;height:90px;display:block}
-input,button{font:inherit;padding:8px 12px;border-radius:8px;border:1px solid var(--bd);background:var(--card);color:var(--tx)}
-button{cursor:pointer}#login{display:flex;gap:8px}
 </style>
 </head>
 <body>
 <h1>Grid bot <span class="tag" id="mode">—</span> <span class="tag" id="exchange">—</span> <span class="tag" id="age">—</span></h1>
-<div class="card" id="login"><input id="key" type="password" placeholder="Contraseña del panel" autocomplete="current-password"><button id="go">Entrar</button></div>
 <div id="app"></div>
 <p class="muted" id="foot"></p>
 <script>
@@ -73,21 +70,16 @@ function render(s) {
   $("#app").innerHTML = h;
 }
 
-let key = ""; try { key = localStorage.getItem("panelKey") || ""; } catch (e) {}
 async function load() {
-  if (!key) return;
   try {
-    const r = await fetch("/api/estado", { headers: { "x-panel-key": key }, cache: "no-store" });
-    if (r.status === 401) { $("#login").style.display = "flex"; $("#foot").textContent = "Contraseña incorrecta."; return; }
+    const r = await fetch("/api/estado", { cache: "no-store" });
+    if (r.status === 401) { location.reload(); return; } // la sesión del navegador venció: vuelve a pedir usuario y clave
     if (!r.ok) { $("#foot").textContent = (await r.json()).error || "Error"; return; }
-    $("#login").style.display = "none";
     render(await r.json());
     $("#foot").textContent = "Se actualiza cada 30 s. Comandos: por Telegram.";
   } catch (e) { $("#foot").textContent = "Sin conexión: " + e.message; }
 }
-$("#go").onclick = () => { key = $("#key").value; try { localStorage.setItem("panelKey", key); } catch (e) {} load(); };
-$("#key").addEventListener("keydown", (e) => { if (e.key === "Enter") $("#go").click(); });
-if (key) { $("#login").style.display = "none"; load(); }
+load();
 setInterval(load, 30000);
 </script>
 </body>
